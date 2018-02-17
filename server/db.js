@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-const log = require('winston');
+  const debug = require('debug')('db');
 
 mongoose.connect(process.env.DB_URL)
   .then(
     () => {
 
-      log.info('db run on port')
+      debug('All done')
     },
     (err) => {
-      console.log(err)
+      debug(err)
     }
   );
 
