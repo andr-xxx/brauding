@@ -15,7 +15,7 @@ const taskScheme = new Schema({
     default: null
   },
   order: {
-    type: number,
+    type: Number,
     required: true
   },
   detail: {
