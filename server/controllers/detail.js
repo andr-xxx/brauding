@@ -40,7 +40,6 @@ const createNewProject = (req, res) => {
         res.json(err)
       });
 
-    // res.send(detailId)
   } else {
     res.json({
       message: 'wrong details'
