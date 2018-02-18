@@ -47,6 +47,37 @@ const createNewProject = (req, res) => {
   }
 };
 
+const getTask = (req, res) => {
+  const detailId = req.params.id;
+
+  DetailModel.findById({
+    _id: detailId
+  })
+    .then(detail => {
+      if (detail) {
+        TaskModel.find({
+          detail: detailId
+        })
+          .then(tasks => {
+            if (tasks) {
+
+              res.json({
+                  ...detail._doc,
+                operations: tasks
+              })
+            }
+          })
+          .catch(err => {
+            res.json(err)
+          })
+      }
+    })
+    .catch(err => {
+      res.json(err)
+    })
+};
+
 module.exports = {
-  createNewProject
+  createNewProject,
+  getTask
 };
