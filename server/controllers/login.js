@@ -1,9 +1,16 @@
 const UserModel = require('../models/user');
+const bcrypt = require('bcryptjs');
 
 const createNewUser = (req, res) => {
-  const body = req.body;
+  const {userName, password, role} = req.body;
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
 
-  const newUser = new UserModel(body);
+  const newUser = new UserModel({
+    userName,
+    role,
+    password: hashedPassword
+  });
 
   newUser.save()
     .then(savedUser => {
@@ -19,21 +26,26 @@ const authorize = (req, res) => {
 
   if (userDetails.userName && userDetails.password) {
     UserModel.findOne({
-      userName: userDetails.userName,
-      password: userDetails.password
+      userName: userDetails.userName
     })
       .then((user) => {
         if (!user) {
           res.json({
-            message: 'incorrect user name or password',
+            message: 'incorrect user name',
             status: 204
           });
         } else {
-          res.status(200).json({
-            id: user._id,
-            userName: user.userName,
-            role: user.role
-          });
+          if (bcrypt.compareSync(userDetails.password, user.password)) {
+            res.status(200).json({
+              id: user._id,
+              userName: user.userName,
+              role: user.role
+            });
+          } else {
+            res.json({
+              message: 'incorrect password'
+            });
+          };
         }
       })
       .catch(err => {
