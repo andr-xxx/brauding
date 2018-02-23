@@ -3,6 +3,7 @@ const router = require('./routes');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const debug = require('debug')('server');
+const jwt = require('jsonwebtoken');
 
 class Server {
   constructor(port) {
@@ -29,6 +30,7 @@ class Server {
     this.app.use(json_body_parser);
     this.app.use(urlencoded_body_parser);
     this.app.use(cookieParser());
+    this.app.set('superSecret', process.env.SECRET);
   }
 }
 
