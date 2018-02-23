@@ -4,10 +4,10 @@ const debug = require('debug')('db');
 mongoose.connect(process.env.DB_URL)
   .then(
     () => {
-      debug('All done')
+      console.log('All done')
     },
     (err) => {
-      debug(err)
+      console.log(err)
     }
   );
 

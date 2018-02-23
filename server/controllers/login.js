@@ -45,7 +45,7 @@ const authorize = (req, res) => {
             res.json({
               message: 'incorrect password'
             });
-          };
+          }
         }
       })
       .catch(err => {
