@@ -1,5 +1,6 @@
 const UserModel = require('../models/user');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 class Login{
   createNewUser(req, res) {
@@ -22,7 +23,7 @@ class Login{
       })
   };
 
-  authorize(req, res) {
+  authenticate(req, res) {
     const userDetails = req.body;
 
     if (userDetails.userName && userDetails.password) {
@@ -37,11 +38,19 @@ class Login{
             });
           } else {
             if (bcrypt.compareSync(userDetails.password, user.password)) {
+              const payload = {
+                role: user.role
+              };
+              const token = jwt.sign(payload, process.env.SECRET, {
+                expiresIn: 86400
+              });
+
               res.json({
                 user: {
                   id: user._id,
                   userName: user.userName,
-                  role: user.role
+                  role: user.role,
+                  token
                 },
                 status: 200
               });

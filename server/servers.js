@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const debug = require('debug')('server');
 const morgan = require('morgan');
-const jwt = require('jsonwebtoken');
+const jwt = require('./middlewares/jwt');
 
 class Server {
   constructor(port) {
@@ -30,15 +30,16 @@ class Server {
   }
 
   initMiddleWares() {
+    // parse body and cookies
     const json_body_parser = bodyParser.json();
     const urlencoded_body_parser = bodyParser.urlencoded({ extended: true });
     this.app.use(json_body_parser);
     this.app.use(urlencoded_body_parser);
     this.app.use(cookieParser());
-
-    this.app.set('superSecret', process.env.SECRET);
-
-    this.app.use(morgan('dev'))
+    // add loggers
+    this.app.use(morgan('dev'));
+    // add auth
+    this.app.use(jwt);
   }
 }
 
