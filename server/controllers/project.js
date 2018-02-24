@@ -15,53 +15,40 @@ class Project {
 
       try {
         await project.save();
+
+        details.forEach(async detail => {
+          const newDetail = new DetailModel({
+            name: detail.name,
+            description: detail.description,
+            project: projectId
+          });
+
+          const detailId = newDetail.id;
+          await newDetail.save();
+
+          detail.operations.forEach(async (operation, index)=> {
+            const newTask = new TaskModel({
+              name: operation.name,
+              description: operation.description,
+              order: index,
+              detail: detailId
+            });
+
+            await newTask.save()
+              .then(() => {
+                res.json({
+                  message: 'successfully saved',
+                  status: 200
+                })
+              })
+          })
+        })
       } catch (err) {
         res.json({
           status: 400,
           message: err
         })
       }
-
-      details.forEach(async detail => {
-        const newDetail = new DetailModel({
-          name: detail.name,
-          description: detail.description,
-          project: projectId
-        });
-
-        const detailId = newDetail.id;
-        try {
-          await newDetail.save()
-        } catch (err) {
-          res.json({
-            status: 400,
-            message: err
-          })
-        }
-
-        detail.operations.forEach((operation, index)=> {
-          const newTask = new TaskModel({
-            name: operation.name,
-            description: operation.description,
-            order: index,
-            detail: detailId
-          });
-
-          newTask.save()
-            .then(result => {
-              res.json({
-                message: 'successfully saved',
-                status: 200
-              })
-            })
-            .catch(err => {
-              res.json({
-                message: err,
-                status: 400
-              })
-            })
-        })
-      })
     } else {
       res.json({
         status: 300,
