@@ -1,8 +1,10 @@
 const express = require('express');
+const https = require('https');
 const router = require('./routes');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const debug = require('debug')('server');
+const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 
 class Server {
@@ -12,6 +14,9 @@ class Server {
 
   runServer() {
     this.app = express();
+
+    //todo use HTTPS except HTTP server
+    // const httpsServer = https.createServer(credentials, app);
 
     this.app.listen(this.port, () => {
       this.initMiddleWares();
@@ -30,7 +35,10 @@ class Server {
     this.app.use(json_body_parser);
     this.app.use(urlencoded_body_parser);
     this.app.use(cookieParser());
+
     this.app.set('superSecret', process.env.SECRET);
+
+    this.app.use(morgan('dev'))
   }
 }
 
