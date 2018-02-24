@@ -7,12 +7,9 @@ const projectScheme = new Schema({
     required: true,
     unique : [true, 'project with this name already register']
   },
-  details: [{
-    detail: {
-      type: Schema.Types.ObjectId,
-      ref: 'Detail'
-    }
-  }]
+  description: {
+    type: String
+  }
 });
 
 projectScheme.statics.list = function() {

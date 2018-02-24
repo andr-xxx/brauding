@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const detailController = require('../controllers/detail');
+const detailController = require('../controllers/project');
 
-router.post('/create-detail', (req, res) => {
+router.post('/create-project', (req, res) => {
   detailController.createNewProject(req, res);
 });
 
