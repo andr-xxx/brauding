@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const loginController = require('../controllers/login');
 
-router.post('/', (req, res) => {
+router.post('/sign-in', (req, res) => {
   loginController.authenticate(req, res);
 });
 
-router.post('/create-new-user', (req, res) => {
+router.post('/sign-up', (req, res) => {
   loginController.createNewUser(req, res);
 });
 
