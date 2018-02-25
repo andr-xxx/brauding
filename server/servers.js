@@ -36,8 +36,10 @@ class Server {
     this.app.use(json_body_parser);
     this.app.use(urlencoded_body_parser);
     this.app.use(cookieParser());
+
     // add loggers
     this.app.use(morgan('dev'));
+
     // add auth
     this.app.use(jwt);
   }
