@@ -9,6 +9,11 @@ const machineScheme = new Schema({
   },
   additionalInformation: {
     type: String
+  },
+  department: {
+    type: Schema.Types.ObjectId,
+    ref: 'Department',
+    required: true
   }
 });
 
