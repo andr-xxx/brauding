@@ -38,10 +38,8 @@ class Login{
             });
           } else {
             if (bcrypt.compareSync(userDetails.password, user.password)) {
-              const payload = {
-                role: user.role
-              };
-              const token = jwt.sign(payload, process.env.SECRET, {
+
+              const token = jwt.sign({role: user.role}, process.env.SECRET, {
                 expiresIn: 86400
               });
 

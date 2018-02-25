@@ -1,6 +1,7 @@
 const DetailModel = require('../models/detail');
 const TaskModel = require('../models/task');
 const ProjectModel = require('../models/project');
+const fillQueue = require('../helpers/fillQueue');
 
 class Project {
   async createNewProject(req, res) {
@@ -14,34 +15,34 @@ class Project {
       const projectId = project.id;
 
       try {
-        await project.save();
-
-        details.forEach(async detail => {
+        for (const detail of details) {
           const newDetail = new DetailModel({
             name: detail.name,
             description: detail.description,
             project: projectId
           });
 
+          project.details.push(newDetail.id);
           const detailId = newDetail.id;
-          await newDetail.save();
 
-          detail.operations.forEach(async (operation, index)=> {
+          for (const [index, operation] of detail.operations.entries()) {
             const newTask = new TaskModel({
               name: operation.name,
               description: operation.description,
               order: index,
               detail: detailId
             });
+            newDetail.tasks.push(newTask.id);
+            await newTask.save();
+          }
 
-            await newTask.save()
-              .then(() => {
-                res.json({
-                  message: 'successfully saved',
-                  status: 200
-                })
-              })
-          })
+          await newDetail.save();
+        }
+
+        await project.save();
+        res.json({
+          message: 'successfully saved',
+          status: 200
         })
       } catch (err) {
         res.json({
