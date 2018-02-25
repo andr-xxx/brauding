@@ -24,7 +24,12 @@ const taskScheme = new Schema({
   },
   machine: {
     type: Schema.Types.ObjectId,
-    ref: 'Machine'
+    ref: 'Machine',
+    required: true
+  },
+  duration: {
+    type: Number,
+    default: null
   }
 });
 

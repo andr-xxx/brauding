@@ -5,6 +5,7 @@ const fillQueue = require('../helpers/fillQueue');
 
 class Project {
   async createNewProject(req, res) {
+    //todo remove models if failed
     const {name, description, details} = req.body;
     if (name && description && details) {
       const project = new ProjectModel({
@@ -29,6 +30,7 @@ class Project {
             const newTask = new TaskModel({
               name: operation.name,
               description: operation.description,
+              machine: operation.machine,
               order: index,
               detail: detailId
             });
@@ -56,6 +58,10 @@ class Project {
         message: 'wrong input data, please check'
       })
     }
+  }
+
+  async updateProjectTime(req, res) {
+
   }
 
   getTask(req, res) {

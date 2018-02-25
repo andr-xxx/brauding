@@ -5,7 +5,7 @@ const projectScheme = new Schema({
   name: {
     type: String,
     required: true,
-    unique : [true, 'project with this name already register']
+    unique: [true, 'project with this name already register']
   },
   description: {
     type: String
@@ -20,7 +20,7 @@ const projectScheme = new Schema({
   }]
 });
 
-projectScheme.statics.futureList = function() {
+projectScheme.statics.futureList = function () {
   return this.find({
     "timeStart": {
       "$gte": new Date()
@@ -28,12 +28,12 @@ projectScheme.statics.futureList = function() {
   });
 };
 
-projectScheme.statics.getFullList = function() {
+projectScheme.statics.getFullList = function () {
   return this.find();
 };
 
-projectScheme.statics.getFullInformationById = function(id) {
-  return this.findById(id).populate({path : 'details', populate : {path : 'tasks'}});
+projectScheme.statics.getFullInformationById = function (id) {
+  return this.findById(id).populate({path: 'details', populate: {path: 'tasks', populate: {path: 'machine'}}});
 };
 
 module.exports = mongoose.model('Project', projectScheme);
