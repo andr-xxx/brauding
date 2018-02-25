@@ -12,4 +12,10 @@ const queueScheme = new Schema({
   }
 });
 
+queueScheme.statics.getQueueListByMachine = function() {
+
+
+  return this.find({});
+};
+
 module.exports = mongoose.model('Queue', queueScheme);

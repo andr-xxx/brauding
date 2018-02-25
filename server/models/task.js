@@ -21,6 +21,10 @@ const taskScheme = new Schema({
   detail: {
     type: Schema.Types.ObjectId,
     ref: 'Detail'
+  },
+  machine: {
+    type: Schema.Types.ObjectId,
+    ref: 'Machine'
   }
 });
 
