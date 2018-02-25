@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary" style="margin-bottom: 20px;">
+  <div class="container">
+    <button class="navbar-toggler"
+            type="button"
+            (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="isCollapsed"
+            aria-controls="collapsableNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="collapsableNav" class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/projects" routerLinkActive="active">Проекты</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/sectors" routerLinkActive="active">Участки</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/equipment" routerLinkActive="active">Оборудование</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/users" routerLinkActive="active">Пользователи</a>
+        </li>
+      </ul>
+    </div>
+
+    <span class="navbar-text">Hello <a href="">User</a></span>
+  </div>
+</nav>
