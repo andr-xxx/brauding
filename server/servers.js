@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const debug = require('debug')('server');
 const morgan = require('morgan');
 const jwt = require('./middlewares/jwt');
+const cors= require('cors');
 
 class Server {
   constructor(port) {
@@ -30,12 +31,13 @@ class Server {
   }
 
   initMiddleWares() {
-    // parse body and cookies
+    // parse body, cookies enable CORS
     const json_body_parser = bodyParser.json();
     const urlencoded_body_parser = bodyParser.urlencoded({ extended: true });
     this.app.use(json_body_parser);
     this.app.use(urlencoded_body_parser);
     this.app.use(cookieParser());
+    this.app.use(cors());
 
     // add loggers
     this.app.use(morgan('dev'));
