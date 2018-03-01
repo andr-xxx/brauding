@@ -39,7 +39,13 @@ export class LoginComponent implements OnInit {
         .subscribe(response => {
           if (response.status === 200) {
             this.loginForm.isSubmitted = false;
-            localStorage.setItem('token', response.user.token)
+            //todo redirect to dahsboard
+            localStorage.setItem('token', response.user.token);
+            localStorage.setItem('userDetail', JSON.stringify({
+              userName: response.user.userName,
+              role: response.user.role,
+              id: response.user.id,
+            }))
           } else {
             switch (response.message) {
               case 'incorrect user name':
