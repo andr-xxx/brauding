@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DOMAIN } from "../../constants/common";
 
-const SIGN_IN_PATH = 'login/sign-in';
+const SIGN_IN_PATH = 'users/sign-in';
 
 @Injectable()
 export class HttpService {

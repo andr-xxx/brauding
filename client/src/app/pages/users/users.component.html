@@ -3,7 +3,8 @@
 <main class="page-content">
   <div class="container">
     <div class="row">
-      <h5>Пользователи <a routerLink="/create-user" class="badge badge-success">Создать</a></h5>
+      <h5>Пользователи <a routerLink="/create-user"
+                          class="badge badge-success">Создать</a></h5>
 
       <table class="table table-striped table-bordered">
         <thead>
@@ -15,40 +16,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td scope="row">1</td>
-          <td>Иван Иванов</td>
-          <td>Технолог</td>
+        <tr *ngFor="let user of users; let index = index">
+          <td scope="row">{{index + 1}}</td>
+          <td>{{user.firstName}} {{user.secondName}}</td>
+          <td>{{roleMap[user.role]}}</td>
           <td>
-            <a class="btn btn-link btn-sm" href="">Редактировать</a>
-            <a class="btn btn-link text-danger btn-sm" href="">Удалить</a>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">2</td>
-          <td>Петр Петров</td>
-          <td>Нормировщик</td>
-          <td>
-            <a class="btn btn-link btn-sm" href="">Редактировать</a>
-            <a class="btn btn-link text-danger btn-sm" href="">Удалить</a>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">3</td>
-          <td>Василий Васильев</td>
-          <td>Мастер</td>
-          <td>
-            <a class="btn btn-link btn-sm" href="">Редактировать</a>
-            <a class="btn btn-link text-danger btn-sm" href="">Удалить</a>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">4</td>
-          <td>Дмитрий Дмитриев</td>
-          <td>Клиент</td>
-          <td>
-            <a class="btn btn-link btn-sm" href="">Редактировать</a>
-            <a class="btn btn-link text-danger btn-sm" href="">Удалить</a>
+            <a class="btn btn-link btn-sm"
+               href="">Редактировать</a>
+            <a class="btn btn-link text-danger btn-sm"
+               (click)="removeUsers($event, user._id)"
+               href="">Удалить</a>
           </td>
         </tr>
         </tbody>

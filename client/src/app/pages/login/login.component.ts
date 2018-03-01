@@ -42,6 +42,8 @@ export class LoginComponent implements OnInit {
             //todo redirect to dahsboard
             localStorage.setItem('token', response.user.token);
             localStorage.setItem('userDetail', JSON.stringify({
+              firstName: response.user.firstName,
+              secondName: response.user.secondName,
               userName: response.user.userName,
               role: response.user.role,
               id: response.user.id,
