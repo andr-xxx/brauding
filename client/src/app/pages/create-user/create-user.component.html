@@ -1,0 +1,96 @@
+<navbar></navbar>
+
+<main class="page-content">
+  <div class="container">
+    <h5 class="w-100">Создание пользователя</h5>
+
+    <form class="form create-user-form w-75" (ngSubmit)="handleSubmit()" #createUser="ngForm">
+      <div class="row">
+        <div class="col-6 form-group">
+          <input type="text" class="form-control" placeholder="Имя" [(ngModel)]="user.firstName" name="firstName">
+        </div>
+        <div class="col-6 form-group">
+          <input type="text" class="form-control" placeholder="Фамилия" [(ngModel)]="user.lastName" name="lastName">
+        </div>
+        <div class="col-6 form-group">
+          <input type="text" class="form-control" placeholder="Логин" [(ngModel)]="user.login" name="login">
+        </div>
+        <div class="col-6 form-group">
+          <select class="form-control" [(ngModel)]="user.role" name="role">
+            <option value="" selected disabled>Выберете роль</option>
+            <option value="technologist">Технолог</option>
+            <option value="task-setter">Нормировщик</option>
+            <option value="master">Мастер</option>
+            <option value="customer">Клиент</option>
+            <option value="admin">Администратор</option>
+          </select>
+        </div>
+        <div class="col-6 form-group" *ngIf="user.role === 'customer'">
+          <select class="form-control" [(ngModel)]="user.projects" name="projects">
+            <option value="" selected disabled>Проекты</option>
+            <option value="">Проект "A"</option>
+            <option value="">Проект "B"</option>
+            <option value="">Проект ...</option>
+            <option value="">Проект "Z"</option>
+          </select>
+
+          <ul class="items-list">
+            <li class="item">
+              <span class="badge badge-primary">
+                <span>Проект "A"</span>
+                <i class="icon" aria-hidden="true">&times;</i>
+              </span>
+            </li>
+            <li class="item">
+              <span class="badge badge-primary">
+                <span>Проект "B"</span>
+                <i class="icon" aria-hidden="true">&times;</i>
+              </span>
+            </li>
+            <li class="item">
+              <span class="badge badge-primary">
+                <span>Проект "C"</span>
+                <i class="icon" aria-hidden="true">&times;</i>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 form-group" *ngIf="user.role === 'master'">
+          <select class="form-control" [(ngModel)]="user.sector" name="sector">
+            <option value="" selected disabled>Участки</option>
+            <option value="">Участок "A"</option>
+            <option value="">Участок "B"</option>
+            <option value="">Участок ...</option>
+            <option value="">Участок "Z"</option>
+          </select>
+
+          <ul class="items-list">
+            <li class="item">
+              <span class="badge badge-primary">
+                <span>Участок "A"</span>
+                <i class="icon" aria-hidden="true">&times;</i>
+              </span>
+            </li>
+            <li class="item">
+              <span class="badge badge-primary">
+                <span>Участок "B"</span>
+                <i class="icon" aria-hidden="true">&times;</i>
+              </span>
+            </li>
+            <li class="item">
+              <span class="badge badge-primary">
+                <span>Участок "C"</span>
+                <i class="icon" aria-hidden="true">&times;</i>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row text-right">
+        <div class="col-12 text-right">
+          <button type="button" class="btn btn-success">Создать</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
