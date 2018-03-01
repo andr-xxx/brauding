@@ -2,13 +2,15 @@ const UserModel = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-class Login{
+class Users{
   createNewUser(req, res) {
-    const {userName, password, role} = req.body;
+    const {userName, password, role, firstName, secondName} = req.body;
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
 
     const newUser = new UserModel({
+      firstName,
+      secondName,
       userName,
       role,
       password: hashedPassword
@@ -46,6 +48,8 @@ class Login{
               res.json({
                 user: {
                   id: user._id,
+                  firstName: user.firstName,
+                  secondName: user.secondName,
                   userName: user.userName,
                   role: user.role,
                   token
@@ -70,6 +74,46 @@ class Login{
       })
     }
   };
+
+  getAll(req, res) {
+    UserModel.getAll()
+      .then(users => {
+        res.status(200).json({
+          status: 200,
+          users
+        })
+      })
+      .catch(err => {
+        res.status(400).json({
+          status: 400,
+          message: err
+        })
+      })
+  }
+
+  remove(req, res) {
+    const id = req.params.id;
+    if (id) {
+      UserModel.remove(id)
+        .then(response => {
+          res.json({
+            status: 200,
+            message: 'user deleted'
+          })
+        })
+        .catch(err => {
+          res.json({
+            status: 400,
+            message: err
+          })
+        })
+    } else {
+      res.json({
+        status: 400,
+        message: 'No id provided'
+      })
+    }
+  }
 }
 
-module.exports = new Login();
+module.exports = new Users();

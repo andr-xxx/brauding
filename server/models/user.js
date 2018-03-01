@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userShcema = new Schema({
+  firstName: {
+    type: String,
+    required: true
+  },
+  secondName: {
+    type: String,
+    required: true
+  },
   userName: {
     type: String,
     required: true,
@@ -14,8 +22,10 @@ const userShcema = new Schema({
   },
   role: {
     type: String,
-    required: true,
-    default: 'master'
+    required: true
+  },
+  department: {
+    type: String
   },
   createdAt: {
     type: Date,
@@ -25,6 +35,14 @@ const userShcema = new Schema({
 
 userShcema.statics.findByName = function(details, cb) {
   this.findOne({ userName: new RegExp(name, 'i') }, cb);
+};
+
+userShcema.statics.getAll = function() {
+  return this.find({});
+};
+
+userShcema.statics.remove = function(id) {
+  return this.findById(id).remove();
 };
 
 module.exports = mongoose.model('User', userShcema);

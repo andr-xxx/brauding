@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const login = require('./login');
+const users = require('./users');
 const machine = require('./production');
 const project = require('./project');
 const tests = require('./tests');
 
-router.use('/login', login);
+router.use('/users', users);
 router.use('/production', machine);
 router.use('/project', project);
 router.use('/tests', tests);
