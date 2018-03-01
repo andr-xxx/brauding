@@ -1,20 +1,41 @@
 <div class="d-flex flex-column full-height justify-content-center">
   <div class="container-fluid">
-    <form class="form login-form">
+    <form class="form login-form" (ngSubmit)="onSubmitLogin()" [formGroup]="loginForm" novalidate>
       <fieldset>
         <legend class="legend">Вход</legend>
-
         <div class="form-group">
-          <input type="text" class="form-control" id="email-field" placeholder="Логин">
-          <small class="form-text text-danger">Логин введен не корректно</small>
+          <input
+            type="text"
+            class="form-control"
+            id="email-field"
+            formControlName="userName"
+            placeholder="Логин">
+          <small *ngIf="loginForm.controls['userName'].errors && loginForm.isSubmitted"
+                 class="form-text text-danger">
+            Логин введен не корректно
+          </small>
         </div>
 
         <div class="form-group">
-          <input type="password" class="form-control" id="password-field" placeholder="Пароль">
+          <input
+            type="password"
+            class="form-control"
+            id="password-field"
+            formControlName="password"
+            placeholder="Пароль">
         </div>
-
+        <small *ngIf="loginForm.controls['password'].errors && loginForm.isSubmitted"
+               class="form-text text-danger">
+          Пароль введен не корректно
+        </small>
         <div class="text-right">
-          <button type="button" class="btn btn-primary">Войти</button>
+          <button type="submit"
+                  class="btn btn-primary">Войти
+          </button>
+          <small *ngIf="errorMessage"
+                 class="form-text text-danger">
+            {{errorMessage}}
+          </small>
         </div>
       </fieldset>
     </form>
