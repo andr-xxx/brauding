@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
-  const token = req.body.token || req.param('token') || req.headers['x-access-token'];
-  if (req.originalUrl === '/login/sign-in') {
+  const token = req.headers['x-access-token'];
+  if (req.originalUrl === '/users/sign-in') {
     next();
     return
   }
