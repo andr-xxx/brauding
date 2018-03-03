@@ -11,8 +11,7 @@ const projectScheme = new Schema({
     type: String
   },
   timeStart: {
-    type: Date,
-    default: new Date()
+    type: Date
   },
   details: [{
     type: Schema.Types.ObjectId,

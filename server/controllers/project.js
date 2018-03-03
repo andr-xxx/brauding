@@ -93,6 +93,21 @@ class Project {
         res.json(err)
       })
   };
+
+  getProjectsList(req, res) {
+    ProjectModel.getFullList()
+      .then(response => {
+        res.status(200).json({
+          data: response
+        })
+      })
+      .catch(err => {
+        err.status(400).json({
+          status: 400,
+          message: 'something was wrong, please try again'
+        })
+      })
+  }
 }
 
 module.exports = new Project();
