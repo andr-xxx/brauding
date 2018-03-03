@@ -5,65 +5,115 @@
     <div class="row">
       <h5 class="w-100">Создание проекта</h5>
 
-      <form class="form create-project-form w-50">
+      <form class="form create-project-form w-50"
+            (ngSubmit)="onCreateProject()"
+            [formGroup]="createProjectForm"
+            novalidate>
         <div class="row form-group">
           <div class="col-12 form-group">
             <input type="text"
                    class="form-control"
+                   formControlName="name"
                    placeholder="Название"
-                   [(ngModel)]="project.title"
-                   name="projectTitle" />
+                   name="projectTitle"/>
           </div>
           <div class="col-12">
             <textarea type="text"
                       class="form-control"
                       placeholder="Документация"
-                      [(ngModel)]="project.docs"
+                      formControlName="description"
                       name="projectDocs">
             </textarea>
           </div>
         </div>
 
-        <h6 class="w-100">Добавление деталей</h6>
+        <div formArrayName="details">
+          <div class="row form-group"
+               *ngFor="let detail of details.controls; let i = index"
+               style="margin-left: 50px">
+            <h6 class="w-100">Добавление деталей</h6>
+            <div [formGroupName]="i">
+              <div class="col-12 form-group">
+                <input type="text"
+                       class="form-control"
+                       formControlName="name"
+                       placeholder="Название детали"
+                       name="detailTitle"/>
+              </div>
 
-        <div class="row form-group">
-          <div class="col-12 form-group">
-            <input type="text"
-                   class="form-control"
-                   placeholder="Название детали"
-                   [(ngModel)]="detailTitle"
-                   name="detailTitle" />
+              <div class="col-12 form-group">
+              <textarea type="text"
+                        class="form-control"
+                        formControlName="description"
+                        placeholder="Технология"
+                        name="projectDocs">
+              </textarea>
+              </div>
+
+              <div formArrayName="tasks">
+                <div class="row form-group"
+                     *ngFor="let currentTask of getTasks(i).controls; let i = index"
+                     style="margin-left: 50px">
+                  <h6 class="w-100">Добавление Операций</h6>
+
+                  <div [formGroupName]="i">
+                    <div class="col-12 form-group">
+                      <input type="text"
+                             class="form-control"
+                             formControlName="name"
+                             placeholder="Название "
+                             name="detailTitle"/>
+                    </div>
+                    <div class="col-12 form-group">
+                      <select name="detailEquipment"
+                              formControlName="machine"
+                              class="form-control">
+                        <option value=""
+                                disabled
+                                selected>Выберете оборудование
+                        </option>
+                        <option value="">Станок 1</option>
+                        <option value="">Станок 2</option>
+                        <option value="">Станок ...</option>
+                        <option value="">Станок 5</option>
+                      </select>
+                    </div>
+
+                    <div class="col-12 form-group">
+                      <textarea type="text"
+                                formControlName="description"
+                                class="form-control"
+                                placeholder="Технология"
+                                name="projectDocs">
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 text-right">
+                  <button type="button"
+                          (click)="addTask(i)"
+                          class="btn btn-success">Добавить операцию
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
           </div>
-
-          <div class="col-12 form-group">
-            <select name="detailEquipment" class="form-control">
-              <option value="" disabled selected>Выберете оборудование</option>
-              <option value="">Станок 1</option>
-              <option value="">Станок 2</option>
-              <option value="">Станок ...</option>
-              <option value="">Станок 5</option>
-            </select>
-          </div>
-
-          <div class="col-12 form-group">
-            <textarea type="text"
-                      class="form-control"
-                      placeholder="Технология"
-                      [(ngModel)]="detailTechnology"
-                      name="projectDocs">
-            </textarea>
-          </div>
-
           <div class="col-12 text-right">
-            <button type="button" class="btn btn-success">Добавить деталь</button>
+            <button type="button"
+                    (click)="addDetail()"
+                    class="btn btn-success">Добавить деталь
+            </button>
           </div>
         </div>
-
         <hr>
 
         <div class="row text-right">
           <div class="col-12 text-right">
-            <button type="button" class="btn btn-success">Создать проект</button>
+            <button type="submit"
+                    class="btn btn-success">Создать проект
+            </button>
           </div>
         </div>
       </form>
