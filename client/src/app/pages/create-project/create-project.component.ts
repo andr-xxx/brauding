@@ -58,22 +58,7 @@ export class CreateProjectComponent implements OnInit {
   }
 
   addDetail() {
-    this.details.push(new FormGroup({
-        name: new FormControl('',
-          [
-            Validators.required,
-            Validators.minLength(4),]
-        ),
-        description: new FormControl('',
-          [
-            Validators.required,
-            Validators.minLength(4),]
-        ),
-        tasks: new FormArray([
-          this.newTask()
-        ])
-      })
-    );
+    this.details.push(this.newDetail());
   }
 
   createProjectForm = new FormGroup({
@@ -99,8 +84,5 @@ export class CreateProjectComponent implements OnInit {
   }
 
   onCreateProject() {
-    console.log(this.createProjectForm)
-    console.log(this.createProjectForm.value)
   }
-
 }
