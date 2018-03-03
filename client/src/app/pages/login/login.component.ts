@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
                 this.errorMessage = 'Неправильный пароль';
                 break;
               default:
-                this.errorMessage = 'Что-то пошло не так. Пожалуйста, повторите операцию';
+                this.errorMessage = 'Что-то пошло не так. Пожалуйста, перезагрузите страницу и повторите операцию';
                 break
             }
           }
