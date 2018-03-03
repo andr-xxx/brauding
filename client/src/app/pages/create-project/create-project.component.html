@@ -1,5 +1,6 @@
 <navbar></navbar>
 <!--todo move styles into scss files-->
+<!--todo add validation to each inputs-->
 <main class="page-content">
   <div class="container">
     <div class="row">
@@ -50,9 +51,9 @@
               </textarea>
               </div>
 
-              <div formArrayName="tasks">
+              <div formArrayName="operations">
                 <div class="row form-group"
-                     *ngFor="let currentTask of getTasks(i).controls; let i = index"
+                     *ngFor="let currentTask of getOperation(i).controls; let i = index"
                      style="margin-left: 50px">
                   <h6 class="w-100">Добавление Операций</h6>
 
@@ -72,10 +73,7 @@
                                 disabled
                                 selected>Выберете оборудование
                         </option>
-                        <option value="">Станок 1</option>
-                        <option value="">Станок 2</option>
-                        <option value="">Станок ...</option>
-                        <option value="">Станок 5</option>
+                        <option *ngFor="let machine of machines" [value]="machine._id">{{machine.name}}</option>
                       </select>
                     </div>
 
@@ -91,7 +89,7 @@
                 </div>
                 <div class="col-12 text-right">
                   <button type="button"
-                          (click)="addTask(i)"
+                          (click)="addOperation(i)"
                           class="btn btn-success">Добавить операцию
                   </button>
                 </div>

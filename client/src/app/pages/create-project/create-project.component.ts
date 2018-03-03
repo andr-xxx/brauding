@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpService } from './create-project.https.service';
 
 @Component({
   selector: 'app-create-project',
   templateUrl: './create-project.component.html',
-  styleUrls: ['./create-project.component.scss']
+  styleUrls: ['./create-project.component.scss'],
+  providers: [HttpService]
 })
 export class CreateProjectComponent implements OnInit {
-  newTask() {
+  machines;
+  newOperation() {
     return new FormGroup({
       name: new FormControl('',
         [
@@ -27,16 +29,16 @@ export class CreateProjectComponent implements OnInit {
     });
   }
 
-  addTask(index) {
-    this.getTasks(index).push(this.newTask());
+  addOperation(index) {
+    this.getOperation(index).push(this.newOperation());
   }
 
-  getTasks(index): FormArray {
-    return this.details.controls[index].get('tasks') as FormArray;
+  getOperation(index): FormArray {
+    return this.details.controls[index].get('operations') as FormArray;
   }
 
   newDetail() {
-    return  new FormGroup({
+    return new FormGroup({
       name: new FormControl('',
         [
           Validators.required,
@@ -47,8 +49,8 @@ export class CreateProjectComponent implements OnInit {
           Validators.required,
           Validators.minLength(4),]
       ),
-      tasks: new FormArray([
-        this.newTask()
+      operations: new FormArray([
+        this.newOperation()
       ])
     });
   }
@@ -77,12 +79,23 @@ export class CreateProjectComponent implements OnInit {
     ])
   });
 
-  constructor() {
+  constructor(private httpService: HttpService) {
   }
 
   ngOnInit() {
+    this.httpService.getMachineList()
+      .subscribe(response => {
+        this.machines = response;
+      })
   }
 
   onCreateProject() {
+    if (this.createProjectForm.valid) {
+      this.httpService.createNewProject(this.createProjectForm.value)
+        .subscribe(response => {
+          console.log(response)
+        })
+    }
   }
+
 }
