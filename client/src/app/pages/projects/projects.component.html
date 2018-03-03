@@ -16,55 +16,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngFor="let project of projectsList; let i = index">
           <td scope="row">1</td>
-          <td><a routerLink="/view-project">Проект "А"</a></td>
-          <td>25.02.2018</td>
-          <td>26.02.2018</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-secondary btn-sm dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">Выберете</button>
-              <div class="dropdown-menu">
-                <button type="button" class="dropdown-item">Старт</button>
-                <button type="button" class="dropdown-item">Редактировать</button>
-                <button type="button" class="dropdown-item">Пауза</button>
-                <button type="button" class="dropdown-item">Отчеты</button>
-                <button type="button" class="dropdown-item">Финиш</button>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">2</td>
-          <td><a routerLink="/view-project">Проект "B"</a></td>
-          <td>25.02.2018</td>
-          <td>26.02.2018</td>
-          <td>
-            <div class="btn-group">
-              <button class="btn btn-secondary btn-sm dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">Выберете</button>
-              <div class="dropdown-menu">
-                <button type="button" class="dropdown-item">Старт</button>
-                <button type="button" class="dropdown-item">Редактировать</button>
-                <button type="button" class="dropdown-item">Пауза</button>
-                <button type="button" class="dropdown-item">Отчеты</button>
-                <button type="button" class="dropdown-item">Финиш</button>
-              </div>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td scope="row">3</td>
-          <td><a routerLink="/view-project">Проект "C"</a></td>
-          <td>25.02.2018</td>
-          <td>26.02.2018</td>
+          <td><a routerLink="/view-project">{{project.name}}</a></td>
+          <td>{{project.timeStart}}</td>
+          <td></td>
           <td>
             <div class="btn-group">
               <button class="btn btn-secondary btn-sm dropdown-toggle"
