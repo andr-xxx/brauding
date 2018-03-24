@@ -108,6 +108,24 @@ class Project {
         })
       })
   }
+
+  getProjectDetail(req, res) {
+    const projectId = req.params.projectId;
+    ProjectModel.getFullInformationById(projectId)
+      .then(projectDetail => {
+        res.status(200).json({
+          status: 200,
+          data: projectDetail
+        });
+      })
+      .catch(err => {
+        res.status(400).json({
+          status: 400,
+          message: 'something went wrong'
+        });
+      })
+
+  }
 }
 
 module.exports = new Project();

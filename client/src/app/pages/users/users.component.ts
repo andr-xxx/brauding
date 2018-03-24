@@ -12,6 +12,8 @@ const REMOVE_PATH = 'users/remove';
 })
 export class UsersComponent implements OnInit {
   users: any;
+
+  //todo move to constants
   roleMap: Object = {
     'rate-fixer': 'Нормировщик',
     'admin': 'Администратор',

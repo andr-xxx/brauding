@@ -32,7 +32,7 @@ const appRoutes: Routes = [
   {path: 'create-user', component: CreateUserComponent},
   {path: 'projects', component: ProjectsComponent},
   {path: 'create-project', component: CreateProjectComponent},
-  {path: 'view-project', component: ViewProjectComponent},
+  {path: 'projects/:projectId', component: ViewProjectComponent},
   {path: 'sectors', component: SectorsComponent},
   {path: 'create-sector', component: CreateSectorComponent},
   {path: 'equipment', component: EquipmentComponent}

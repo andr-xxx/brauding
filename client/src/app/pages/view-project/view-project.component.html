@@ -15,10 +15,10 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td scope="row">1</td>
+        <tr *ngFor="let detail of projectDetail?.details; let i = index">
+          <td scope="row">{{ i + 1 }}</td>
           <td>
-            <a class="btn btn-link" routerLink="">Деталь 1</a>
+            <a class="btn btn-link" routerLink="">{{ detail.name }}</a>
           </td>
           <td>
             <a class="btn btn-link" routerLink="">Отчет</a>

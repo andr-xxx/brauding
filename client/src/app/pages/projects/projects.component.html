@@ -18,7 +18,7 @@
         <tbody>
         <tr *ngFor="let project of projectsList; let i = index">
           <td scope="row">1</td>
-          <td><a routerLink="/view-project">{{project.name}}</a></td>
+          <td><a routerLink="/projects/{{project._id}}">{{project.name}}</a></td>
           <td>{{project.timeStart}}</td>
           <td></td>
           <td>
